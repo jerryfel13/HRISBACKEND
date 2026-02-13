@@ -1,0 +1,21 @@
+{
+  "name": "hris-backend",
+  "version": "1.0.0",
+  "description": "HRIS Backend - Holiday, Employee, Schedule, Time Tracking, Leave, Payroll, Rank & File",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js"
+  },
+  "keywords": ["hris", "rest-api", "swagger"],
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.0",
+    "pg": "^8.12.0",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1",
+    "uuid": "^10.0.0"
+  }
+}
