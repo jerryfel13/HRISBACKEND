@@ -39,12 +39,9 @@ cp .env.example .env
 npm start
 ```
 
-- **Landing page:** [http://localhost:3000](http://localhost:3000) (company logo, welcome text, link to API docs)
 - **API base:** `http://localhost:3000`
-- **Swagger UI (REST API guide):** [http://localhost:3000/api-docs](http://localhost:3000/api-docs)
+- **Swagger UI (REST API guide):** [http://localhost:3000/api-docs](http://localhost:3000/api-docs) (root `/` redirects here)
 - **OpenAPI JSON:** `http://localhost:3000/api-docs.json`
-
-Replace the default logo with your company logo by overwriting `public/logo.svg` (or add `public/logo.png` and set `src="/logo.png"` in `public/index.html`).
 
 ## API overview
 

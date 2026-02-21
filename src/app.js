@@ -11,18 +11,13 @@ const leaveRouter = require('./routes/leave');
 const payrollRouter = require('./routes/payroll');
 const rankFileRouter = require('./routes/rankFile');
 
-const path = require('path');
-
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 
-// Landing page and static assets (logo, etc.)
-app.use(express.static(path.join(__dirname, '..', 'public')));
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', 'public', 'index.html'));
-});
+// Root redirect to API docs
+app.get('/', (req, res) => res.redirect('/api-docs'));
 
 // REST API
 app.use('/holidays', holidaysRouter);
