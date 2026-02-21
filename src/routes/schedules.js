@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const schedulesDb = require('../db/schedules');
+const { DAYS_OF_WEEK, isValidDayOfWeekArray, normalizeDayOfWeekArray } = schedulesDb;
 
 /**
  * @swagger
@@ -65,7 +66,7 @@ router.get('/:id', async (req, res) => {
  *             required: [employeeId, dayOfWeek, startTime, endTime]
  *             properties:
  *               employeeId: { type: string }
- *               dayOfWeek: { type: integer, minimum: 0, maximum: 6 }
+ *               dayOfWeek: { type: array, items: { type: string, enum: ['monday','tuesday','wednesday','thursday','friday','saturday','sunday'] }, example: ["monday","tuesday","wednesday","thursday","friday"] }
  *               startTime: { type: string, example: "09:00" }
  *               endTime: { type: string, example: "17:00" }
  *     responses:
@@ -75,6 +76,8 @@ router.post('/', async (req, res) => {
   try {
     const { employeeId, dayOfWeek, startTime, endTime } = req.body || {};
     if (employeeId == null || dayOfWeek == null || !startTime || !endTime) return res.status(400).json({ error: 'employeeId, dayOfWeek, startTime, endTime required' });
+    const days = normalizeDayOfWeekArray(Array.isArray(dayOfWeek) ? dayOfWeek : [dayOfWeek]);
+    if (!isValidDayOfWeekArray(days)) return res.status(400).json({ error: `dayOfWeek must be a non-empty array of: ${DAYS_OF_WEEK.join(', ')} (or numbers 0-7)` });
     const schedule = await schedulesDb.create({ employeeId, dayOfWeek, startTime, endTime });
     res.status(201).json(schedule);
   } catch (err) {
@@ -100,7 +103,7 @@ router.post('/', async (req, res) => {
  *             type: object
  *             properties:
  *               employeeId: { type: string }
- *               dayOfWeek: { type: integer }
+ *               dayOfWeek: { type: array, items: { type: string, enum: ['monday','tuesday','wednesday','thursday','friday','saturday','sunday'] } }
  *               startTime: { type: string }
  *               endTime: { type: string }
  *     responses:
@@ -110,6 +113,10 @@ router.post('/', async (req, res) => {
 router.put('/:id', async (req, res) => {
   try {
     const { employeeId, dayOfWeek, startTime, endTime } = req.body || {};
+    if (dayOfWeek !== undefined && dayOfWeek !== null) {
+      const days = normalizeDayOfWeekArray(Array.isArray(dayOfWeek) ? dayOfWeek : [dayOfWeek]);
+      if (!isValidDayOfWeekArray(days)) return res.status(400).json({ error: `dayOfWeek must be a non-empty array of: ${DAYS_OF_WEEK.join(', ')} (or numbers 0-7)` });
+    }
     const updated = await schedulesDb.update(req.params.id, { employeeId, dayOfWeek, startTime, endTime });
     if (!updated) return res.status(404).json({ error: 'Schedule not found' });
     res.json(updated);

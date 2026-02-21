@@ -1,0 +1,42 @@
+{
+  "description": "Test data for POST /schedules. Replace employeeId with a valid UUID from your employees table.",
+  "schedules": [
+    {
+      "employeeId": "00000000-0000-0000-0000-000000000001",
+      "dayOfWeek": ["monday", "tuesday", "wednesday", "thursday", "friday"],
+      "startTime": "09:00",
+      "endTime": "17:00"
+    },
+    {
+      "employeeId": "00000000-0000-0000-0000-000000000001",
+      "dayOfWeek": ["saturday"],
+      "startTime": "08:00",
+      "endTime": "12:00"
+    },
+    {
+      "employeeId": "00000000-0000-0000-0000-000000000002",
+      "dayOfWeek": ["monday", "wednesday", "friday"],
+      "startTime": "08:30",
+      "endTime": "16:30"
+    },
+    {
+      "employeeId": "00000000-0000-0000-0000-000000000002",
+      "dayOfWeek": ["tuesday", "thursday"],
+      "startTime": "13:00",
+      "endTime": "21:00"
+    },
+    {
+      "employeeId": "00000000-0000-0000-0000-000000000003",
+      "dayOfWeek": ["saturday", "sunday"],
+      "startTime": "10:00",
+      "endTime": "18:00"
+    },
+    {
+      "employeeId": "00000000-0000-0000-0000-000000000003",
+      "dayOfWeek": ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"],
+      "startTime": "00:00",
+      "endTime": "23:59"
+    }
+  ],
+  "example_curl": "curl -X POST http://localhost:3000/schedules -H 'Content-Type: application/json' -d '{\"employeeId\":\"<YOUR_EMPLOYEE_UUID>\",\"dayOfWeek\":[\"monday\",\"tuesday\",\"wednesday\",\"thursday\",\"friday\"],\"startTime\":\"09:00\",\"endTime\":\"17:00\"}'"
+}

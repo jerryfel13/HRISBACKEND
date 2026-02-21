@@ -17,7 +17,9 @@ app.use(cors());
 app.use(express.json());
 
 // Root redirect to API docs
-app.get('/', (req, res) => res.redirect('/api-docs'));
+app.get('/', (req, res) => {
+  res.redirect('/api-docs');
+});
 
 // REST API
 app.use('/holidays', holidaysRouter);

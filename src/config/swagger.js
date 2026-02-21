@@ -47,7 +47,7 @@ const options = {
           properties: {
             id: { type: 'string' },
             employeeId: { type: 'string' },
-            dayOfWeek: { type: 'integer', minimum: 0, maximum: 6 },
+            dayOfWeek: { type: 'array', items: { type: 'string', enum: ['monday','tuesday','wednesday','thursday','friday','saturday','sunday'] }, example: ['monday','tuesday','wednesday','thursday','friday'] },
             startTime: { type: 'string', example: '09:00' },
             endTime: { type: 'string', example: '17:00' },
           },

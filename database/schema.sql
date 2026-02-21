@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS employees (
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
--- Schedules
+-- Schedules (day_of_week: 0=Sunday, 1=Monday, ..., 6=Saturday - one row per day)
 CREATE TABLE IF NOT EXISTS schedules (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   employee_id UUID NOT NULL REFERENCES employees(id) ON DELETE CASCADE,
@@ -36,6 +36,7 @@ CREATE TABLE IF NOT EXISTS schedules (
 );
 
 CREATE INDEX IF NOT EXISTS idx_schedules_employee_id ON schedules(employee_id);
+CREATE UNIQUE INDEX IF NOT EXISTS idx_schedules_employee_day_times ON schedules(employee_id, day_of_week, start_time, end_time);
 
 -- Clock records (time tracking)
 -- Run CREATE TABLE and CREATE INDEX together (Execute SQL Script / Alt+X).
